@@ -1,16 +1,13 @@
 // src/App.jsx
 import React from "react";
 import "./App.css";
-import Greeting from "./Greeting.jsx";
+import BlogList from "./BlogList";
 
-const students = ["Scott", "Stefano", "Mei", "Michael", "Martha", "Abigail"];
 function App() {
   return (
     <div className="container">
-      <h1 className="title">Hello World!</h1>
-      {students.map((student) => (
-        <Greeting student={student} />
-      ))}
+      <h1 className="title">Blog Posts</h1>
+      <BlogList />
     </div>
   );
 }
