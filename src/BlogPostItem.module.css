@@ -1,0 +1,49 @@
+.blogPostItem {
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  padding: 20px;
+}
+
+.titleLink {
+  text-decoration: none;
+  color: #333333;
+}
+
+.titleLink:hover {
+  color: #007bff;
+}
+
+.titleLink h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.summary {
+  font-size: 16px;
+  color: #666666;
+  margin-bottom: 10px;
+}
+
+.date {
+  font-size: 14px;
+  color: #999999;
+}
+
+@media (max-width: 768px) {
+  .titleLink h2 {
+    font-size: 20px;
+  }
+
+  .summary {
+    font-size: 14px;
+  }
+
+  .date {
+    font-size: 12px;
+  }
+
+  .blogPostItem {
+    padding: 15px;
+  }
+}
