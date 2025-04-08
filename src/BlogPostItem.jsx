@@ -19,4 +19,3 @@ export default function BlogPostItem({ title, summary, date, url }) {
     </div>
   );
 }
-//this is a test
