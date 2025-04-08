@@ -1,0 +1,100 @@
+.blogPostForm {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+label {
+  flex: 1;
+  font-size: 16px;
+  color: #333333;
+  text-align: right;
+  margin-right: 10px;
+}
+
+input,
+textarea {
+  flex: 2;
+  font-size: 16px;
+  color: #333333;
+  background-color: #ffffff;
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+  background-color: #ffffff;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid #007bff;
+}
+
+.error {
+  flex-basis: 100%;
+  margin-top: 5px;
+  margin-left: auto;
+  font-size: 14px;
+  color: #ff0000;
+  text-align: right;
+}
+
+.submitButton {
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .formGroup {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 15px;
+  }
+
+  label {
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+
+  input,
+  textarea {
+    font-size: 14px;
+  }
+
+  .error {
+    font-size: 12px;
+    text-align: left;
+  }
+
+  .submitButton {
+    width: 100%;
+    margin-top: 15px;
+  }
+}

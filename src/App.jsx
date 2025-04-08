@@ -1,56 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useParams,
+  useNavigate,
+  Link,
+} from "react-router-dom";
 import "./App.css";
 import BlogPostList from "./BlogPostList";
 import BlogPostDetail from "./BlogPostDetail";
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import BlogPostForm from "./BlogPostForm";
 
-const samplePosts = [
+const initialPosts = [
   {
     id: "1",
-    title: "Getting Started with React",
-    summary: "Learn the basics of React and build your first application.",
-    content: `
-      <p>React is a JavaScript library for building user interfaces. It allows you to create reusable components and manage application state effectively.</p>
-      <h2>Why React?</h2>
-      <ul>
-        <li>Component-Based</li>
-        <li>Declarative Syntax</li>
-        <li>Rich Ecosystem</li>
-      </ul>
-      <p>To get started, install React using <code>create-react-app</code> or Vite. Visit the <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">official React documentation</a> to learn more.</p>
-    `,
+    title: "Test",
+    summary:
+      "The fitness grand pacer test is a multistage aerobic capacity test.",
+    content: "<p>It's a test</p>",
     author: "Jane Doe",
     date: "2023-01-01",
     url: "/posts/1",
   },
   {
     id: "2",
-    title: "CSS Grid vs. Flexbox",
-    summary: "A comparison of two powerful layout systems in CSS.",
-    content: `
-      <p>Both CSS Grid and Flexbox are layout models in CSS, but they serve different purposes.</p>
-      <h2>Flexbox</h2>
-      <p>Best for linear, one-dimensional layouts (row or column). It’s great for aligning items inside a container.</p>
-      <h2>Grid</h2>
-      <p>Ideal for two-dimensional layouts with rows and columns.</p>
-      <p>Check out the <a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank" rel="noopener noreferrer">CSS Tricks Grid Guide</a> for examples.</p>
-    `,
+    title: "Testing",
+    summary: "Did you know that this is a test?",
+    content: "<p>Hi</p>",
     author: "John Smith",
     date: "2023-02-15",
     url: "/posts/2",
   },
   {
     id: "3",
-    title: "Accessibility in Web Development",
-    summary: "Tips for making your web applications more accessible.",
+    title: "Tester",
+    summary: "What",
     content: `
-      <p>Accessibility ensures that all users, including those with disabilities, can interact with your site.</p>
-      <h2>Best Practices</h2>
+      <p>Paragraph</p>
+      <h2>Second heading</h2>
       <ul>
-        <li>Use semantic HTML (like <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>)</li>
-        <li>Include alt text for images</li>
-        <li>Ensure keyboard navigability</li>
-        <li>Use sufficient color contrast</li>
+        <li>list</li>
+        <li>list</li>
+        <li>list</li>
+        <li>list</li>
       </ul>
       <p>Learn more from the <a href="https://webaim.org/standards/wcag/" target="_blank" rel="noopener noreferrer">WCAG Guidelines</a>.</p>
     `,
@@ -60,25 +53,86 @@ const samplePosts = [
   },
 ];
 
-function PostDetailWrapper() {
-  const { id } = useParams();
-  const post = samplePosts.find((p) => p.id === id);
-
-  return post ? (
-    <BlogPostDetail {...post} />
-  ) : (
-    <p style={{ padding: "20px", textAlign: "center" }}>Blog post not found.</p>
-  );
-}
-
 function App() {
+  const [posts, setPosts] = useState(initialPosts);
+
+  const addPost = (newPost) => {
+    const id = (posts.length + 1).toString();
+    const url = `/posts/${id}`;
+    setPosts([...posts, { ...newPost, id, url }]);
+  };
+
+  const updatePost = (id, updatedPost) => {
+    setPosts(
+      posts.map((p) =>
+        p.id === id ? { ...updatedPost, id, url: `/posts/${id}` } : p
+      )
+    );
+  };
+
+  const PostDetailWrapper = () => {
+    const { id } = useParams();
+    const post = posts.find((p) => p.id === id);
+    return post ? (
+      <BlogPostDetail {...post} />
+    ) : (
+      <p style={{ padding: "20px", textAlign: "center" }}>
+        Blog post not found.
+      </p>
+    );
+  };
+
+  const CreateWrapper = () => {
+    const navigate = useNavigate();
+    const handleSubmit = (data) => {
+      addPost(data);
+      navigate("/");
+    };
+    return <BlogPostForm onSubmit={handleSubmit} />;
+  };
+
+  const EditWrapper = () => {
+    const { id } = useParams();
+    const post = posts.find((p) => p.id === id);
+    const navigate = useNavigate();
+
+    const handleSubmit = (data) => {
+      updatePost(id, data);
+      navigate(`/posts/${id}`);
+    };
+
+    return post ? (
+      <BlogPostForm post={post} onSubmit={handleSubmit} />
+    ) : (
+      <p style={{ padding: "20px", textAlign: "center" }}>Post not found.</p>
+    );
+  };
+
   return (
     <BrowserRouter>
       <div className="container">
         <h1 className="title">Blog Posts</h1>
+        <div style={{ marginBottom: "20px", textAlign: "right" }}>
+          <Link to="/create">
+            <button
+              style={{
+                padding: "10px 16px",
+                background: "#007BFF",
+                color: "#fff",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+              }}
+            >
+              + New Post
+            </button>
+          </Link>
+        </div>
         <Routes>
-          <Route path="/" element={<BlogPostList posts={samplePosts} />} />
+          <Route path="/" element={<BlogPostList posts={posts} />} />
           <Route path="/posts/:id" element={<PostDetailWrapper />} />
+          <Route path="/create" element={<CreateWrapper />} />{" "}
+          <Route path="/edit/:id" element={<EditWrapper />} />{" "}
         </Routes>
       </div>
     </BrowserRouter>
