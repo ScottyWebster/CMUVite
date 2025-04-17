@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
 
 const NavBar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
