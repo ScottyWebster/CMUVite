@@ -1,0 +1,94 @@
+/* NavBar.module.css */
+.navBar {
+  background-color: #003366;
+  color: white;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  font-family: Arial, sans-serif;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.links {
+  display: flex;
+  gap: 20px;
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.links a:focus {
+  outline: 2px solid blue;
+}
+
+.hamburger {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.hamburger:focus {
+  outline: 2px solid blue;
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  animation: slideDown 0.3s ease;
+}
+
+.mobileMenu a {
+  padding: 20px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #003366;
+}
+
+.mobileMenu a:focus {
+  outline: 2px solid blue;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .links {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
