@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
       </header>
       <main className={styles.main}>{children}</main>
       <footer className={styles.footer}>
-        <p>&copy; 2023 BlogApp. All rights reserved.</p>
+        <p>&copy; 2025 Scott Webster. All rights reserved.</p>
       </footer>
     </div>
   );

@@ -1,12 +1,18 @@
 /* Layout.module.css */
 .layout {
-  padding-top: 60px; /* to make room for fixed navbar */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
+  overflow-x: hidden;
 }
 
 .main {
+  flex: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  width: 100%;
 }
 
 .footer {

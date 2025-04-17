@@ -11,6 +11,9 @@ import "./App.css";
 import BlogPostList from "./BlogPostList";
 import BlogPostDetail from "./BlogPostDetail";
 import BlogPostForm from "./BlogPostForm";
+import Layout from "./Layout";
+import Blog from "./Blog";
+import About from "./About";
 
 const initialPosts = [
   {
@@ -114,9 +117,16 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="container">
-        <h1 className="title">Blog Posts</h1>
-        <div style={{ marginBottom: "20px", textAlign: "right" }}>
+      <Layout>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "20px",
+          }}
+        >
+          <h1 className="title">Blog Posts</h1>
           <Link to="/create">
             <button
               style={{
@@ -135,10 +145,12 @@ function App() {
         <Routes>
           <Route path="/" element={<BlogPostList posts={posts} />} />
           <Route path="/posts/:id" element={<PostDetailWrapper />} />
-          <Route path="/create" element={<CreateWrapper />} />{" "}
-          <Route path="/edit/:id" element={<EditWrapper />} />{" "}
+          <Route path="/create" element={<CreateWrapper />} />
+          <Route path="/edit/:id" element={<EditWrapper />} />
+          <Route path="/blog" element={<Blog posts={posts} />} />
+          <Route path="/about" element={<About />} />
         </Routes>
-      </div>
+      </Layout>
     </BrowserRouter>
   );
 }
