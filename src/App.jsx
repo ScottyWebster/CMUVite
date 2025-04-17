@@ -70,11 +70,15 @@ function App() {
     );
   };
 
+  const deletePost = (id) => {
+    setPosts(posts.filter((p) => p.id !== id));
+  };
+
   const PostDetailWrapper = () => {
     const { id } = useParams();
     const post = posts.find((p) => p.id === id);
     return post ? (
-      <BlogPostDetail {...post} />
+      <BlogPostDetail {...post} id={id} onDelete={deletePost} />
     ) : (
       <p style={{ padding: "20px", textAlign: "center" }}>
         Blog post not found.

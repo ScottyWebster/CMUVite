@@ -1,9 +1,18 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import styles from "./BlogPostDetail.module.css";
+import DeleteButton from "./DeleteButton";
+import ConfirmationDialog from "./ConfirmationDialog";
 
-const BlogPostDetail = ({ title, content, author, date }) => {
-  const { id } = useParams();
+const BlogPostDetail = ({ title, content, author, date, id, onDelete }) => {
+  const navigate = useNavigate();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleDelete = () => {
+    onDelete(id);
+    setIsDialogOpen(false);
+    navigate("/");
+  };
 
   if (!title || !content || !author || !date) {
     return <p className={styles.notFound}>Blog post not found.</p>;
@@ -25,7 +34,14 @@ const BlogPostDetail = ({ title, content, author, date }) => {
         dangerouslySetInnerHTML={{ __html: content }}
       />
 
-      <div style={{ marginTop: "30px", textAlign: "right" }}>
+      <div
+        style={{
+          marginTop: "30px",
+          display: "flex",
+          gap: "10px",
+          justifyContent: "flex-end",
+        }}
+      >
         <Link to={`/edit/${id}`}>
           <button
             style={{
@@ -40,7 +56,14 @@ const BlogPostDetail = ({ title, content, author, date }) => {
             Edit Post
           </button>
         </Link>
+        <DeleteButton onClick={() => setIsDialogOpen(true)} />
       </div>
+
+      <ConfirmationDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 };
